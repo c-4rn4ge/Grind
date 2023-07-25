@@ -1,13 +1,28 @@
 class Solution {
 public:
-    int maxSubArray(vector<int>& nums) 
+    int maxSubArray(vector<int>& arr) 
     {
-        int sum = nums[0],maxSum = sum;
-        for(int i= 1;i<nums.size();i++)
+        int maxS= INT_MIN,sum=0,i,s=0,start=0,end=0;
+        for (int i = 0; i < arr.size(); i++)
         {
-            sum = max(sum+nums[i],nums[i]);
-            maxSum = max(maxSum,sum);
+            sum = sum + arr[i];
+            if (sum < arr[i])
+            {
+                sum = arr[i];
+                s = i;
+            }
+            if (maxS < sum)
+            {
+                maxS = sum;
+                start = s;
+                end = i;
+            }
         }
-        return maxSum;
+        for(i=start;i<=end;i++)
+        {
+            cout<<arr[i]<<' ';
+        }
+        cout<<endl;
+        return maxS;
     }
 };
