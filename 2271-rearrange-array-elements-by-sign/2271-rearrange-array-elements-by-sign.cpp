@@ -6,16 +6,8 @@ public:
         vector<int> ans(n);
         for(i=0;i<n;i++)
         {
-            if(nums[i]>0) 
-            {
-                ans[pos] = nums[i];
-                pos+=2;
-            }
-            if(nums[i]<0)
-            {
-                ans[neg] = nums[i];
-                neg+=2;
-            }
+            if(nums[i]>0) {ans[pos] = nums[i];pos+=2;}
+            else          {ans[neg] = nums[i];neg+=2;}
         }
         return ans;
     }
