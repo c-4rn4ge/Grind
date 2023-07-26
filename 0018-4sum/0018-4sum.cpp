@@ -9,12 +9,10 @@ public:
         vector<vector<int>> ans;
         for(i=0;i<n-3;i++)
         {
-           // if (nums[i]>target) break;
             if (i>0 && nums[i] == nums[i-1]) continue;
             a = nums[i];
             for (int j=i+1;j<n-2;j++) 
             {
-                //if (nums[j]>target) break;
                 if (j>i+1 && nums[j] == nums[j-1]) continue;
                 b = nums[j];
                 for (l=j+1,r=n-1;l<r;) 
