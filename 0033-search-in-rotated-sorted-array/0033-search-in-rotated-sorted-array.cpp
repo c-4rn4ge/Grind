@@ -8,7 +8,7 @@ public:
             mid = low + (high-low)/2;
             if(arr[mid] == target) return  mid;
             if(arr[mid] >= arr[low]){
-                if(target >= arr[low] && target < arr[mid]) high = mid-1;
+                if(target >= arr[low] && target <= arr[mid]) high = mid-1;
                 else low = mid+1;
             }
             else{
