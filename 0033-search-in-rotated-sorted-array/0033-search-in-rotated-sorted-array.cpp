@@ -12,7 +12,7 @@ public:
                 else low = mid+1;
             }
             else{
-                if( target > arr[mid] && target <= arr[high]) low = mid+1;
+                if( target >= arr[mid] && target <= arr[high]) low = mid+1;
                 else high = mid-1;
             }
         }
