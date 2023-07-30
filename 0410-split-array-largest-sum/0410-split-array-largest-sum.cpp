@@ -12,9 +12,9 @@ public:
         }
         return s;
     }
-
-    int solve(vector<int>& nums, int n, int m) 
+    int splitArray(vector<int>& nums, int m) 
     {
+        int n = nums.size();
         if (m > n) return -1;
         int l = *max_element(nums.begin(), nums.end()), h = accumulate(nums.begin(), nums.end(), 0);
         while (l <= h) 
@@ -24,10 +24,5 @@ public:
             else h = mi - 1;
         }
         return l;
-    }
-
-    int splitArray(vector<int>& nums, int k) 
-    {
-        return solve(nums,nums.size(),k);
     }
 };
