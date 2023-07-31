@@ -18,12 +18,10 @@ public:
                 temp = "";
             }
         }
-
-        for(int j = ans.size()-1; j >= 0;j--){
-            str += ans[j];
-            if(j != 0){
-                str += " ";
-            }
+        str += ans[ans.size()-1];
+        for(int j = ans.size()-2; j >= 0;j--)
+        {
+            str += " " + ans[j];
         }
         return str;
     }
