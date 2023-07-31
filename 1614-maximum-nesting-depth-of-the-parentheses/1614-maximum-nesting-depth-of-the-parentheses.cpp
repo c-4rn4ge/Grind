@@ -6,15 +6,8 @@ public:
         for(i=0;i<l;i++)
         {
             if( (s[i]!='(') && (s[i]!=')') )    continue;
-            if(s[i]=='(')
-            {
-                count++;
-            }
-            else
-            {
-                ans = max(ans,count);
-                count--;
-            }
+            if(s[i]=='(')   count++;
+            else    ans = max(ans,count),count--;
         }
         return ans;
     }
