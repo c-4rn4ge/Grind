@@ -2,11 +2,11 @@ class Solution {
 public:
     int maxDepth(string s) 
     {
-        int ans = 0,i,l = s.length(),count=0;
-        for(i=0;i<l;i++)
+        int ans = 0,count=0;
+        for(auto i : s)
         {
-            if( (s[i]!='(') && (s[i]!=')') )    continue;
-            if(s[i]=='(')   count++;
+            if( (i!='(') && (i!=')') )    continue;
+            if(i=='(')   count++;
             else    ans = max(ans,count),count--;
         }
         return ans;
