@@ -1,24 +1,22 @@
+#define m 1000000007
 class Solution {
 public:
-    long long powFunction(long long x, long long n)
+    long long calc(int x, long long n)
     {
-        if(n == 0){
-            return 1;
-        }
-        long long ans = powFunction(x, n/2);
-        ans *= ans;
-        ans %= 1000000007;
-        if(n%2==1)
-        {
-            ans *= x;
-            ans %= 1000000007;
-        }
-        return ans;
+        if(n==0)    return 1;
+        x = x % m;
+        long long val = calc(x,n/2) ;
+        long long ans = (val*val) % m;
+        if(n%2==0)  return ans;
+        else        return (ans*x) % m;
     }
+
     int countGoodNumbers(long long n) 
     {
-        long long odd = n/2;
-        long long even = n/2 + n%2;
-        return (powFunction(5, even) * powFunction(4, odd))%1000000007;
+        long long odd_places = n/2;
+        long long even_places = n/2 + n % 2;
+        long long four_pow = calc(4,odd_places) % m;
+        long long five_pow = calc(5,even_places) % m;
+        return int((four_pow*five_pow) % m);
     }
 };
