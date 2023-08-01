@@ -2,15 +2,14 @@ class Solution {
 public:
     int missingNumber(vector<int>& nums) 
     {
-        int n = nums.size();
-        int a = 0, sum =0;
-        n = (n*(n+1))/2;
-        for(int i =0;i<nums.size();i++)
+        int sum = 0,c=0,os,j=nums.size();
+        os = j * (j+1)/2;
+        for(auto i: nums)
         {
-            if(nums[i]==0) a=1;
-            sum += nums[i];
-        } 
-        if(a==0) return 0;
-        return n - sum;
+            sum += i;
+            if(i==0) c++;
+        }
+        if(c==0) return 0;
+        return os-sum;
     }
 };
