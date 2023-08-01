@@ -18,11 +18,11 @@ public:
                 temp = "";
             }
         }
-        for(int j = ans.size()-1; j > 0;j--)
+        for(int j = ans.size()-1; j >= 0;j--)
         {
-            str += ans[j] + " ";
+            str += ans[j];
+            if(j!=0) str+=' ';
         }
-        str += ans[0];
         return str;
     }
 };
