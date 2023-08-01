@@ -1,15 +1,13 @@
 class Solution {
 public:
-    void moveZeroes(vector<int>& nums) 
+    void moveZeroes(vector<int>& a) 
     {
-        ios_base::sync_with_stdio(false);
-        cin.tie(nullptr);
-        int i=0 ,j=1,n = nums.size();
-        while(i<nums.size() && j<nums.size())
+        int n = a.size(),low = 0,high=1;
+        while(low < n && high < n)
         {
-            if(nums[i]!=0) i++,j++;
-            else if(nums[j]==0) j++;
-            else swap(nums[i++],nums[j]);
+            if(a[low]) {low ++;high = low+1;}
+            else if(a[low]==0 && a[high]==0) high++;
+            else if(a[low]==0 && a[high]) swap(a[low++],a[high]);
         }
     }
 };
