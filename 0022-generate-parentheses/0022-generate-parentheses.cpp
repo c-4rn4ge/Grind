@@ -2,19 +2,19 @@ class Solution {
 public:
     void solve(string & s, vector<string> &ans,int n,int c,int o)
     {
-        if(c==0 && o==0) ans.push_back(s);
+        if(c==n && o==n) ans.push_back(s);
         else
         {
-            if(o>0)
+            if(o<=n)
             {
                 s.push_back('(');
-                solve(s,ans,n,c,o-1);
+                solve(s,ans,n,c,o+1);
                 s.pop_back();
             }
-            if(c>o) 
+            if(c<o) 
             {
                 s.push_back(')');
-                solve(s,ans,n,c-1,o);
+                solve(s,ans,n,c+1,o);
                 s.pop_back();
             }
         }
@@ -23,7 +23,7 @@ public:
     {
         vector<string> ans;
         string s;
-        solve(s,ans,n,n,n);
+        solve(s,ans,n,0,0);
         return ans;
     }
 };
