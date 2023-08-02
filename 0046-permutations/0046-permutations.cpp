@@ -14,7 +14,8 @@ public:
     }
     vector<vector<int>> permute(vector<int>& nums) 
     {
-        vector<vector<int>>ans;int n= nums.size();
+        vector<vector<int>>ans;
+        int n= nums.size();
         getPermutation(nums,ans,0,n);
         return ans;
     }
