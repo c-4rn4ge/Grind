@@ -5,7 +5,7 @@ private:
     void solve(string &d,string c,vector<string> &ans,int i)
     {
         if(c.length()==d.length()) ans.push_back(c);
-        else    for(auto j : m[d[i]])   solve(d,c+j,ans,i+1);
+        else    {string temp = m[d[i]];for(auto j : temp)   solve(d,c+j,ans,i+1);}
     }
 public:
     vector<string> letterCombinations(string d) 
