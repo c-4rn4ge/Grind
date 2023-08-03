@@ -19,6 +19,6 @@ public:
             else if( arr[m]==x){ceiling = m;h = m-1;}
             else h=m-1;
         }
-        return {ceiling,floor};    
+        return {ceiling , floor};    
     }
 };
