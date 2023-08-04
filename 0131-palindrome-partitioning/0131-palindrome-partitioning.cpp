@@ -8,18 +8,18 @@ public:
         }
         return true;
     }
-    void solve(string s,vector<vector<string>> &ans,vector<string> &path,int ind,int n)
+    void solve(string s,vector<vector<string>> &ans,vector<string> &str,int i,int n)
     {
-        if(ind == n) ans.push_back(path);
+        if(i==n) ans.push_back(str);
         else
         {
-            for(int i = ind ;i <n;i++)
+            for(int j = i;j<n;j++)
             {
-                if(isP(s,ind, i))
+                if(isP(s,i,j))
                 {
-                    path.push_back(s.substr(ind,i-ind+1));
-                    solve(s,ans,path,i+1,s.length());    
-                    path.pop_back();
+                    str.push_back(s.substr(i,j-i+1));
+                    solve(s,ans,str,j+1,n);
+                    str.pop_back();
                 }
             }
         }
