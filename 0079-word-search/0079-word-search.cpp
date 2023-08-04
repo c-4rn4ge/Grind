@@ -13,14 +13,12 @@ public:
         return var;
     }
     bool exist(vector<vector<char>>& board, string word) 
-    {
-        int row = board.size();
-        int col = board[0].size();
-        for(int i = 0; i < row ; i++)
+    {    
+        for(int i=0; i<board.size(); i++)
         {
-            for(int j = 0; j < col ; j++)
+            for(int j=0; j<board[i].size(); j++)
             {
-                if(solve(board,word,i,j)) return true;
+                if(board[i][j]==word[0])    if(solve(board, word, i, j))    return true;
             }
         }
         return false;
