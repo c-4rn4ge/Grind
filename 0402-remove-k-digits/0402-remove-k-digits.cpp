@@ -11,9 +11,9 @@ public:
                 st.pop();
                 k--;
             }
-            st.push(num[i]);
+            if(st.size() || num[i] != '0')st.push(num[i]);
         }
-        while(k--) 
+        while(st.size() && k--) 
         {
             st.pop();
         }
@@ -24,16 +24,6 @@ public:
             st.pop();
         }
         reverse(ans.begin(), ans.end());
-        int ind;
-        for(int i = 0; i < ans.size(); i++) 
-        {
-            if(ans[i] != '0') 
-            {
-                ind = i;
-                break;
-            }
-        }
-        if(ans.substr(ind).size() == 0) return "0";
-        return ans.substr(ind);
+        return (ans.size()) ? ans : "0";
     }
 };
