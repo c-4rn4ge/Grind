@@ -1,24 +1,24 @@
 class Solution {
 public:
-    bool search(vector<int>& arr, int target) 
+    bool search(vector<int>& nums, int k) 
     {
-        int n = arr.size();
-        int low = 0, high = n-1;
-        long int mid = -1;
-        while(low <= high)
+        int n  = nums.size();
+        int l = 0,h = n-1;
+        while(l<=h)
         {
-            mid = low + (high-low)/2;
-            if(arr[mid] == target || arr[low] == target || arr[high]==target) return  true;
-            if(arr[mid]==arr[low] && arr[low]==arr[high]) {low++,high--;continue;}
-            if(arr[mid] >= arr[low])
+            if(l>= n && h<0) return false;
+            int m = l + (h-l)/2;
+            if(nums[l] == k || nums[m] == k || nums[h] == k) return true;
+            else if(nums[l] == nums[h]) l++,h--;
+            else if(nums[l] <= nums[m])
             {
-                if(target >= arr[low] && target <= arr[mid]) high = mid-1;
-                else low = mid+1;
+                if(nums[l] < k && nums[m] > k) h = m-1;
+                else l = m+1;
             }
             else
             {
-                if( target >= arr[mid] && target <= arr[high]) low = mid+1;
-                else high = mid-1;
+                if(nums[m] < k && nums[h] > k) l = m+1;
+                else h = m-1;
             }
         }
         return false;
