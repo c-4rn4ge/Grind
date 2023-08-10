@@ -1,6 +1,5 @@
-class Solution 
-{
-    public:
+class Solution {
+public:
     int lengthOfLongestSubstring(string str) 
     {
         vector<int> h(256, -1);
@@ -10,7 +9,7 @@ class Solution
             if (h[str[i]] > s)
                 s = h[str[i]];
             h[str[i]] = i;
-            ans = max(ans, i - s);
+            ans = max(ans, i - s );
         }
         return ans;
     }
