@@ -6,7 +6,6 @@ public:
         int l = 0,h = n-1;
         while(l<=h)
         {
-            if(l>= n && h<0) return false;
             int m = l + (h-l)/2;
             if(nums[l] == k || nums[m] == k || nums[h] == k) return true;
             else if(nums[l] == nums[h]) l++,h--;
