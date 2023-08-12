@@ -3,6 +3,7 @@ class Solution
 public:
     int solve(vector<int>& nums, int k)
     {
+        std::ios_base::sync_with_stdio(0), std::cin.tie(0);
         unordered_map<int,int> mp;
         int maxCount = 0,left = 0,right = 0,n = nums.size();
         while(right < n)
@@ -21,6 +22,7 @@ public:
     }
     int subarraysWithKDistinct(vector<int>& nums, int k) 
     {
+        std::ios_base::sync_with_stdio(0), std::cin.tie(0);
         return solve(nums,k) - solve(nums,k-1);
     }
 };
