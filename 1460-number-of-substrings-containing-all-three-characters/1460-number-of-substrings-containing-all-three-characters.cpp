@@ -1,23 +1,29 @@
-class Solution {
+class Solution 
+{
 public:
+    int cA=0,cB=0,cC=0;
+    void doit(char a, char op)
+    {
+        if(a == 'a' && op == '+') cA++;
+        else if(a == 'a' && op == '-') cA--;
+        else if(a == 'b' && op == '+') cB++;
+        else if(a == 'b' && op == '-') cB--;
+        else if(a == 'c' && op == '+') cC++;
+        else if(a == 'c' && op == '-') cC--;
+    }
     int numberOfSubstrings(string s) 
     {
+        int l= 0,r=0,ans=0;
         int n = s.length();
-        int l= 0,r=0,cA=0,cB=0,cC=0,ans=0;
         while(r<n)
         {
-            if(s[r] == 'a') cA++;
-            else if(s[r] == 'b') cB++;
-            else if(s[r] == 'c') cC++;
+            doit(s[r] , '+');
             if(cA > 0 && cB  > 0 && cC > 0)
             {
                 while(cA > 0 && cB > 0 && cC > 0 && l<n)
                 {
                     ans += n - r;
-                    if(s[l] == 'a') cA--;
-                    else if(s[l] == 'b') cB--;
-                    else if(s[l] == 'c') cC--;
-                    l++;
+                    doit(s[l++] , '-' );
                 }
             }
             r++;
