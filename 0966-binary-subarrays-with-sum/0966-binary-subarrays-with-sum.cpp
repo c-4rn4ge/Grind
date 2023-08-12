@@ -1,22 +1,36 @@
 class Solution 
 {
 public:
-    int helper(vector<int>& nums, int goal)
+    int numSubarraysWithSum(vector<int>& nums, int k) 
     {
-        if(goal<0) return 0;
-        int l=0,r=0,k=0,sum=0;
-        while(r<nums.size())
+        int j = 0, odd = 0, count = 0, total = 0,i=0;
+        if(k==0)
         {
-            sum+=nums[r];
-            while(sum>goal) sum-=nums[l++];
-            k+=r-l+1;
-            r++;
+            while(j<nums.size())
+            {
+                while(i<=j && nums[j])
+                {
+                    i++;
+                }
+                total+=j-i+1;
+                j++;
+            }
+            return total;
         }
-        cout<<k<<endl;
-        return k;
-    }
-    int numSubarraysWithSum(vector<int>& nums, int goal) 
-    {
-        return helper(nums,goal)-helper(nums,goal-1);
+        for (int i = 0; i < nums.size(); i++) 
+        {
+            if (nums[i] == 1) 
+            {
+                odd++;
+                if (odd >= k) 
+                {
+                    count = 1;
+                    while (nums[j++] == 0) count++;
+                    total += count;
+                }
+            } 
+            else if (odd >= k) total += count;
+        }
+        return total;
     }
 };
