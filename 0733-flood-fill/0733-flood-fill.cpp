@@ -1,19 +1,32 @@
-class Solution {
+class Solution
+{
 public:
-    void dfs(vector<vector<int>>& grid,vector<vector<int>>& vis,int n,int m ,int i,int j,int r,int color)
+    vector<vector<int>> floodFill(vector<vector<int>> &image, int sr, int sc, int color)
     {
-        if(i< 0 || i >= n || j< 0 || j>= m || vis[i][j] || grid[i][j] != r) return;
-        grid[i][j] = color;
-        vis[i][j] = 1;
-        dfs(grid,vis,n,m,i,j+1,r,color);
-        dfs(grid,vis,n,m,i+1,j,r,color);
-        dfs(grid,vis,n,m,i-1,j,r,color);
-        dfs(grid,vis,n,m,i,j-1,r,color);
-    }
-    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) 
-    {
-        vector<vector<int>> vis(image.size(),vector<int>(image[0].size(),0));
-        dfs(image,vis,image.size(),image[0].size(),sr,sc,image[sr][sc],color);
-        return image;    
+        int n = image.size();
+        int m = image[0].size();
+        vector<vector<int>> ans = image;
+        int r = ans[sr][sc];
+        int drow[] = {-1, 0, +1, 0};
+        int dcol[] = {0, -1, 0, +1};
+        queue<pair<int, int>> q;
+        q.push({sr, sc});
+        while (!q.empty())
+        {
+            int row = q.front().first;
+            int col = q.front().second;
+            q.pop();
+            ans[row][col] = color;
+            for (int i = 0; i < 4; i++)
+            {
+                int nr = row + drow[i];
+                int nc = col + dcol[i];
+                if ((nr >= 0 && nr < n) && (nc >= 0 && nc < m) && ans[nr][nc] == r && ans[nr][nc] != color)
+                {
+                    q.push({nr, nc});
+                }
+            }
+        }
+        return ans;
     }
 };
