@@ -50,8 +50,7 @@ public:
         }
         if (fs)
             s->next = fl;
-        else
-            return fl;
+        else return fl;
         return fs;
     }
     ListNode *partition(ListNode *head, int x)
