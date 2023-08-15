@@ -11,53 +11,28 @@
 class Solution
 {
 public:
-    ListNode *solve(ListNode *head, int x)
+    ListNode* partition(ListNode* head, int x) 
     {
-        ListNode *s = nullptr, *l = nullptr, *fs = nullptr, *fl = nullptr;
-        int f = 0, f1 = 0;
-        while (head)
+        ListNode before(0), after(0);
+        ListNode* before_curr = &before;
+        ListNode* after_curr = &after;
+        
+        while(head) 
         {
-            if (head->val < x)
+            if(head->val < x) 
             {
-                if (!f)
-                {
-                    s = head;
-                    fs = s;
-                    f++;
-                }
-                else
-                {
-                    s->next = head, s = head;
-                }
-                head = head->next;
-                s->next = nullptr;
+                before_curr->next = head;
+                before_curr = head;
             }
-            else
+            else 
             {
-                if (!f1)
-                {
-                    l = head;
-                    fl = l;
-                    f1++;
-                }
-                else
-                {
-                    l->next = head, l = head;
-                }
-                head = head -> next;
-                l -> next = nullptr;
+                after_curr->next = head;
+                after_curr = head;
             }
+            head = head->next;
         }
-        if (fs)
-            s->next = fl;
-        else
-            return fl;
-        return fs;
-    }
-    ListNode *partition(ListNode *head, int x)
-    {
-        if (!head || !head->next)
-            return head;
-        return solve(head, x);
+        after_curr->next = nullptr;
+        before_curr->next = after.next;
+        return before.next;
     }
 };
