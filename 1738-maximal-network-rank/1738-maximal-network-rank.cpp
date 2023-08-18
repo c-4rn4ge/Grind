@@ -3,27 +3,25 @@ class Solution
 public:
     int maximalNetworkRank(int n, vector<vector<int>>& roads) 
     {
-        int maxRank = 0;
-        unordered_map<int, unordered_set<int>> adj;
+        vector<int> count(n,0);
+        vector<vector<int>> direct(n,vector<int>(n,0));
 
-        for (auto& road : roads) 
+        for (auto &i : roads) 
         {
-            adj[road[0]].insert(road[1]);
-            adj[road[1]].insert(road[0]);
-        } 
+            count[i[0]]++;
+            count[i[1]]++;
+            direct[i[0]][i[1]] = 1;
+            direct[i[1]][i[0]] = 1;
+        }
 
-        for (int node1 = 0; node1 < n; ++node1) 
+        int rank = 0;
+        for (int i = 0; i < n; i++) 
         {
-            for (int node2 = node1 + 1; node2 < n; ++node2) 
+            for (int j = i + 1; j < n; j++) 
             {
-                int currentRank = adj[node1].size() + adj[node2].size();
-                if (adj[node1].find(node2) != adj[node1].end()) 
-                {
-                    --currentRank;
-                }
-                maxRank = max(maxRank, currentRank);
+                rank = max(rank, count[i] + count[j] - direct[i][j]);
             }
         }
-        return maxRank;
+        return rank;
     }
 };
