@@ -1,24 +1,25 @@
-class Solution 
-{
+class Solution {
 public:
-    int solve(vector<int>& nums, int i, int last, vector<vector<int>>& dp)
-    {
-        if(i < 0 ) return 0;
-        if(last < 1) return 100;
-        if(dp[i][last] != -1 ) return dp[i][last];
-        int res = INT_MAX;
-        if(last == nums[i]) res = solve(nums, i-1, last, dp);
-        else
-        {
-            if(nums[i] < last) res = min(res, solve(nums, i-1, nums[i], dp));
-            res = min(res, 1 + solve(nums, i-1, last, dp));
-            res = min(res, 1 + solve(nums, i-1, last-1, dp));
-        }
-        return dp[i][last] = res;
-    }
     int minimumOperations(vector<int>& nums) 
     {
-        vector<vector<int>> dp(nums.size()+1, vector<int>(4, -1));
-        return solve(nums, nums.size()-1, 3, dp);
+        int n = nums.size(),ans=0;
+        vector<int> t;    
+        t.push_back(nums[0]);
+        for(int i = 1; i < n; i++)
+        {
+            auto l = lower_bound(t.begin(),t.end(),nums[i]);
+            auto h = upper_bound(t.begin(),t.end(),nums[i]);
+            if(h == t.end())
+            {
+                t.push_back(nums[i]);
+            }
+            else
+            {
+                int ind = h - t.begin();
+                t[ind] = min(t[ind],nums[i]);
+                ans++;
+            }
+        }
+        return ans;
     }
 };
