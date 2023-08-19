@@ -4,7 +4,7 @@ public:
     int solve(vector<int>& nums, int i, int last, vector<vector<int>>& dp)
     {
         if(i < 0 ) return 0;
-        if(last < 1) return 1000;
+        if(last < 1) return 100;
         if(dp[i][last] != -1 ) return dp[i][last];
         int res = INT_MAX;
         if(last == nums[i]) res = solve(nums, i-1, last, dp);
