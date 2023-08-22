@@ -1,23 +1,41 @@
-class Solution {
+class Solution
+{
+private:
 public:
-    int dp[102][102];
-    int solve(vector<vector<int>>&arr,int m,int i,int j)
-    {   
-        if(i>m) return 0;
-        if(j>m || j<0)  return INT_MAX;
-        if(dp[i][j]!=INT_MAX)   return dp[i][j];
-        return dp[i][j]=arr[i][j]+min(solve(arr,m,i+1,j-1),min(solve(arr,m,i+1,j),solve(arr,m,i+1,j+1)));
-
-    }
-    int minFallingPathSum(vector<vector<int>>& matrix) 
+    int minFallingPathSum(vector<vector<int>> &gr)
     {
-       int ans=INT_MAX;
-       int m=matrix.size()-1; 
-       for(int i=0;i<=m;i++)    for(int j=0;j<=m;j++)   dp[i][j]=INT_MAX;
-       for(int i=0;i<=m;i++)
-       {
-        ans=min(ans,solve(matrix,m,0,i));
-       }
-       return ans;
+        int r = gr.size();
+        int c = gr[0].size();
+        int ans = INT_MAX;
+        vector<vector<int>> dp(r, vector<int>(c, 0));
+        for (int i = 0; i < c; i++)
+        {
+            dp[0][i] = gr[0][i];
+        }
+
+        for (int i = 1; i < r; i++)
+        {
+            for (int j = 0; j < c; j++)
+            {
+
+                int u = gr[i][j] + dp[i - 1][j];
+                
+                int ld = gr[i][j];
+                if (j - 1 >= 0) ld += dp[i - 1][j - 1];
+                else            ld += 1e8;
+
+                int rd = gr[i][j];
+                if (j + 1 < c)  rd += dp[i - 1][j + 1];
+                else            rd += 1e8;
+
+                dp[i][j] = min(u, min(ld, rd));
+            }
+        }
+
+        for (int i = 0; i < c; i++)
+        {
+            ans = min(ans, dp[r - 1][i]);
+        }
+        return ans;
     }
 };
