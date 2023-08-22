@@ -6,7 +6,8 @@ public:
         string ans = "";
         while(c != 0)
         {
-            ans = (char)('A' + ( --c % 26)) + ans;
+            char a = 'A' + (--c % 26);
+            ans = a + ans;
             c /= 26;
         }
         return ans;
