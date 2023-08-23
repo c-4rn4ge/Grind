@@ -1,7 +1,9 @@
 class Solution {
 public:
-    ListNode* deleteMiddle(ListNode* head) {
-         struct ListNode *temp;
+    ListNode* deleteMiddle(ListNode* head) 
+    {
+        struct ListNode *temp;
+        if(!head->next) return NULL;
         temp=head;
         int count=0;
         while(temp!=NULL)
@@ -17,8 +19,7 @@ public:
             count--;
             temp=temp->next;
         }
-        if(temp->next) temp->next=temp->next->next;
-        else return head->next;
+        temp->next=temp->next->next;
         return head;
     }
 };
