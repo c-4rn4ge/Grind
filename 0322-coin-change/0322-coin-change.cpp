@@ -1,21 +1,23 @@
-class Solution {
+class Solution 
+{
 public:
-    int solve(int i,vector<int> c,int a,vector<vector<int>>&dp)
+    int coinChange(vector<int>& coins,int amount)
     {
-        if (a==0)           return 0;
-        if (i<0 || a<0)     return 1e6;
-        if (dp[a][i]!=-1)   return dp[a][i];
-        int inc,nc;
-        nc = solve(i-1,c,a,dp);
-        inc = 1e6;
-        if(c[i]<=a) inc = 1 + solve(i,c,a-c[i],dp);
-        return dp[a][i]=min(inc,nc);
-    }
-    int coinChange(vector<int>& coins, int amount) 
-    {
-        sort (coins.begin(),coins.end());
-        vector<vector<int>> dp(amount+1,vector<int>(coins.size(),-1));
-        int ans=solve(coins.size()-1,coins,amount,dp);
-        return (ans>=1e6)?-1:ans;
+        vector<int> dp(amount+1,INT_MAX);
+        dp[0]=0;
+        for(int target=1;target<=amount;target++)
+        {
+            int mini=INT_MAX;
+            for(int i=0;i<coins.size();i++)
+            {
+                if(target-coins[i]>=0)
+                {
+                    int ans=dp[target-coins[i]];
+                    if(ans!=INT_MAX)    mini=min(mini,1+ans);
+                }
+            }
+            dp[target]=mini;
+        } 
+        return (dp[amount]==INT_MAX) ? -1 : dp[amount];
     }
 };
