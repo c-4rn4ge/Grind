@@ -1,27 +1,41 @@
-class Solution 
+class Solution
 {
 public:
-    string reorganizeString(string s) 
+    string reorganizeString(string s)
     {
-        map<int,int>m;
-        for(auto i:s)m[i]++;
-        priority_queue<pair<int,char>>pq;
-        for(auto i:m)pq.push({i.second,i.first});
-        string ans = "";
-        while(pq.size()>=2)
+        int h[26] = {0},maxi=-1,ind = 0;
+        char c;
+
+        for (int i = 0; i < s.length(); i++)    h[s[i] - 'a']++;
+        for (int i = 0; i < 26; i++)
         {
-            auto c1 = pq.top();pq.pop();
-            auto c2 = pq.top();pq.pop();
-            ans += c1.second;
-            ans += c2.second;
-            if(c1.first-1>0)pq.push({c1.first-1,c1.second});
-            if(c2.first-1>0)pq.push({c2.first-1,c2.second});
+            if (h[i] > maxi)
+            {
+                maxi = h[i];
+                c = i + 'a';
+            }
         }
-        if(pq.size())
+
+        while (maxi > 0 && ind < s.size())
         {
-            if(pq.top().first>1)return "";
-            ans += pq.top().second;
+            s[ind] = c;
+            maxi--;
+            ind += 2;
         }
-        return ans;
+        if (maxi != 0)  return "";
+
+        h[c - 'a'] = 0;
+
+        for (int i = 0; i < 26; i++)
+        {
+            while (h[i] > 0)
+            {
+                ind = ind >= s.size() ? 1 : ind;
+                s[ind] = i + 'a';
+                h[i]--;
+                ind += 2;
+            }
+        }
+        return s;
     }
 };
