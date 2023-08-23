@@ -1,23 +1,24 @@
-class Solution 
+class Solution
 {
 public:
-    int coinChange(vector<int>& coins,int amount)
+    int coinChange(vector<int> &num, int k)
     {
-        vector<int> dp(amount+1,INT_MAX);
-        dp[0]=0;
-        for(int target=1;target<=amount;target++)
+        vector<int> dp(k + 1, num.size());
+        dp[0] = 0;
+        for (int j = 1; j <= k; j++)
         {
-            int mini=INT_MAX;
-            for(int i=0;i<coins.size();i++)
+            int mini = INT_MAX;
+            for (int i = 0; i < num.size(); i++)
             {
-                if(target-coins[i]>=0)
+                if (j - num[i] >= 0)
                 {
-                    int ans=dp[target-coins[i]];
-                    if(ans!=INT_MAX)    mini=min(mini,1+ans);
+                    int ans = dp[j - num[i]];
+                    if (ans != INT_MAX)
+                        mini = min(mini, 1 + ans);
                 }
             }
-            dp[target]=mini;
-        } 
-        return (dp[amount]==INT_MAX) ? -1 : dp[amount];
+            dp[j] = mini;
+        }
+        return (dp[k] == INT_MAX) ? -1 : dp[k];
     }
 };
