@@ -1,24 +1,24 @@
-class Solution
+class Solution 
 {
 public:
-    int coinChange(vector<int> &num, int k)
+    int solve(int n , int k , vector<int> &nums,vector<vector<int>> &dp)
     {
-        vector<int> dp(k + 1, num.size());
-        dp[0] = 0;
-        for (int j = 1; j <= k; j++)
+        if(k == 0) return 0;
+        if(n == 0)
         {
-            int mini = INT_MAX;
-            for (int i = 0; i < num.size(); i++)
-            {
-                if (j - num[i] >= 0)
-                {
-                    int ans = dp[j - num[i]];
-                    if (ans != INT_MAX)
-                        mini = min(mini, 1 + ans);
-                }
-            }
-            dp[j] = mini;
+            if( k >= nums[0] && k % nums[0] == 0) return k / nums[0];
+            else return 1e9;
         }
-        return (dp[k] == INT_MAX) ? -1 : dp[k];
+        if(dp[n][k] != -1) return dp[n][k];
+        int take = 1e9, notTake = 1e9;
+        notTake = solve(n-1,k,nums,dp);
+        if(nums[n] <= k) take = 1 + solve(n,k-nums[n],nums,dp);
+        return dp[n][k] = min(take,notTake);
+    }
+    int coinChange(vector<int>& coins, int amount) 
+    {
+        vector<vector<int>> dp(coins.size() , vector<int>(amount+1,-1));
+        int ans = solve(coins.size()-1,amount,coins,dp);
+        return (ans>=1e9) ? -1 : ans;
     }
 };
