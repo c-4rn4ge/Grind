@@ -1,29 +1,22 @@
-class Solution 
-{
-public:
-    int longestCommonSubsequence(string text1, string text2) 
-    {
-        vector<vector<int>> dp(text1.length()+1,vector<int> (text2.length()+1,0));
-        for(int i = 1; i <= text1.length(); i++)
-        {
-            for(int j = 1; j <= text2.length(); j++)
-            {
-                if(text1[i-1]==text2[j-1])  
-                {
-                    dp[i][j] =  1 + dp[i-1][j-1];
-                }
-                else
-                {
-                    dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
-                }
-            }
+class Solution {
+private:
+    int rec(int i, int j, string& s, vector<vector<int>>& dp){
+        if(i > j) return 0;
+        if(i-j == 1) {
+            if(s[i]==s[j]) return 2;
+            else return 0;
         }
-        return dp[text1.length()][text2.length()];
+        if(i==j) return 1;
+
+        if(dp[i][j] != -1) return dp[i][j];
+        if(s[i] == s[j]) return dp[i][j] = 2 + rec(i+1, j-1, s, dp);
+        else return dp[i][j] = max(rec(i+1, j, s,dp), rec(i, j-1, s, dp));
     }
-    int longestPalindromeSubseq(string s) 
-    {
-        string t = s;
-        reverse(t.begin(),t.end());
-        return longestCommonSubsequence(s,t);
+public:
+    int longestPalindromeSubseq(string s) {
+        int n = s.size();
+        if(n==1) return 1;
+        vector<vector<int>>dp(n, vector<int>(n, -1));
+        return rec(0, n-1, s, dp);
     }
 };
