@@ -5,7 +5,8 @@ public:
     {
         nums.push_back(0);
         nums.push_back(c);
-        sort(begin(nums), end(nums));
+
+        sort(nums.begin(), nums.end());
         int n = nums.size();
 
         vector<vector<int>> dp(n, vector<int>(n, n));
