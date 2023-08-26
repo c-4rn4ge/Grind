@@ -3,20 +3,18 @@ class Solution
 public:
     int lengthOfLIS(vector<int>& arr) 
     {
+        vector<int> temp;
         int n = arr.size();
-        int maxi = 1;
-        vector<int> dp(n+1,1);
-        for(int i = 0 ; i < n ; i++)
+        temp.push_back(arr[0]);
+        for(int i = 1 ; i < n ; i++)
         {
-            for(int j = 0 ; j < i; j++)
+            if(temp.back() < arr[i]) temp.push_back(arr[i]);
+            else 
             {
-                if(arr[j] < arr[i] && 1 + dp[j] > dp[i])
-                {
-                    dp[i] = dp[j] + 1;
-                }
+                int ind = lower_bound(temp.begin(),temp.end(),arr[i]) - temp.begin();
+                temp[ind] = arr[i];
             }
-            maxi = max(dp[i],maxi);
         }
-        return maxi;
+        return temp.size();
     }
 };
