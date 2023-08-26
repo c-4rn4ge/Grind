@@ -1,23 +1,18 @@
 class Solution 
 {
-    static bool sortbysec(const pair<int,int> &a,const pair<int,int> &b)
+    static bool cmp(vector<int>& a, vector<int>& b) 
     {
-        return (a.second < b.second);
+        return a[1] < b[1];
     }
 public:
     int findLongestChain(vector<vector<int>>& pairs) 
     {
-        vector<pair<int,int>> paire;
-        for(int i = 0 ; i < pairs.size() ;i++)
-        {
-            paire.push_back( make_pair(pairs[i][0],pairs[i][1]) );
-        }
-        sort(paire.begin(),paire.end(),sortbysec);
+        sort(pairs.begin(),pairs.end(),cmp);
         int ans = 1;
         int j = 0;
-        for(int i = 1 ; i < paire.size() ;i++)
+        for(int i = 1 ; i < pairs.size() ;i++)
         {
-            if(paire[j].second < paire[i].first) ans ++,j=i;
+            if(pairs[j][1] < pairs[i][0]) ans ++,j=i;
         }
         return ans;
     }
