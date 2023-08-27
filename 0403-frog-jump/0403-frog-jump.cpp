@@ -1,24 +1,25 @@
-class Solution {
+class Solution 
+{
 public:
-    bool canCross(vector<int>& stones) 
+    bool solve(int i,int k,vector<int>&nums,vector<vector<int>>&dp)
     {
-        int n = stones.size();
-        if(stones[1]>1)   return false;
-        if(n==2)        return (stones[1]-stones[0]==1);
-        vector<vector<bool>> dp(n, vector<bool> (n+1, false));
-        dp[0][1] = true;
-        for(int i = 1; i < n; i++)
+        if(i==nums.size()-1)   return true;
+        bool a = false;
+        if(dp[i][k]!=-1)return dp[i][k];
+        for(int j=i+1;j<nums.size();j++)
         {
-            for(int j = 0; j < i; j++)
-            {
-                int d = stones[i] - stones[j];
-                if(d > n || dp[j][d] == false)    continue;
-                if(i == n - 1)                  return true;
-                dp[i][d] = true;
-                if(d - 1 >= 0) dp[i][d - 1] = true;
-                if(d + 1 <= n) dp[i][d + 1] = true;
-            }
+            if(nums[j]>(nums[i]+k+1))break;
+            else if(nums[j]==(nums[i]+k-1))   a |= solve(j,k-1,nums,dp);
+            else if(nums[j]==(nums[i]+k))     a |= solve(j,k,nums,dp);
+            else if(nums[j]==(nums[i]+k+1))   a |= solve(j,k+1,nums,dp);
         }
-        return false;    
+        return dp[i][k]= a;
+    }
+
+    bool canCross(vector<int>& nums) 
+    {
+        int n = nums.size();
+        vector<vector<int>>dp(n+2,vector<int>(4000,-1));
+        return solve(0,0,nums,dp);
     }
 };
