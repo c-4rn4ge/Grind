@@ -1,24 +1,4 @@
-class Solution 
-{
-private:
-    // bool solve(vector<int>& nums, int n,int i, int j,vector<vector<int>> &dp)
-    // {
-    //     if(i >= n)  return false;
-    //     if(i == n-1)    return true;
-    //     if(dp[i][j] != -1) return dp[i][j];
-    //     for(int t = -1 ; t<=1 ;t++)
-    //     {
-    //         int jump = j + t;
-    //         for(int j=i+1; j<n; j++)
-    //         {
-    //             if(nums[i] + jump == nums[j])
-    //             {
-    //                 if(solve(nums, n , j, jump,dp))    return dp[i][j] = true;
-    //             }
-    //         }
-    //     }
-    //     return dp[i][j] = false;
-    // }
+class Solution {
 public:
     bool canCross(vector<int>& stones) 
     {
@@ -39,6 +19,6 @@ public:
                 if(d + 1 <= n) dp[i][d + 1] = true;
             }
         }
-        return false;
+        return false;    
     }
 };
