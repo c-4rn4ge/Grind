@@ -1,7 +1,6 @@
 class Solution {
 public:
-    bool dfs(vector<vector<int>>& edges, 
-    vector<int> &vis,vector<int> &pathVis,int node,int v)
+    bool dfs(vector<vector<int>>& edges, vector<int> &vis,vector<int> &pathVis,int node,int v)
     {
         vis[node] = 1;
         pathVis[node] = 1;
