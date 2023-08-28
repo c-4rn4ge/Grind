@@ -1,73 +1,78 @@
-class Solution
-{
-    unordered_map<string, int> m;
+class Solution {
+
+    unordered_map<string, int> mp;
     vector<vector<string>> ans;
-    string b;
-public:
-    void dfs(string word, vector<string> &cur)
+    private:
+    void dfs(string word, vector<string> &seq, string beginWord)
     {
-        if (word == b)
+        if(word == beginWord)
         {
-            reverse(cur.begin(), cur.end());
-            ans.push_back(cur);
-            reverse(cur.begin(), cur.end());
+            reverse(seq.begin(), seq.end());
+            ans.push_back(seq);
+            reverse(seq.begin(), seq.end());
             return;
         }
-        int steps = m[word];
-        int n = word.size();
-        for (int i = 0; i < n; i++)
+
+        int steps = mp[word];
+        int len = word.size();
+
+        for(int i=0; i<len; i++)
         {
-            char ab = word[i];
-            for (char ch = 'a'; ch <= 'z'; ch++)
+            char original = word[i];
+            for(char c='a'; c<='z'; c++)
             {
-                word[i] = ch;
-                if (m.find(word) != m.end() && m[word] + 1 == steps)
+                word[i] = c;
+                if(mp.find(word) != mp.end() && mp[word] == steps -1)
                 {
-                    cur.push_back(word);
-                    dfs(word, cur);
-                    cur.pop_back();
+                    seq.push_back(word);
+                    dfs(word, seq, beginWord);
+                    seq.pop_back();
                 }
             }
-            word[i] = ab;
+            word[i] = original;
         }
     }
 
-    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string> &wordList)
+public:
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) 
     {
         unordered_set<string> st(wordList.begin(), wordList.end());
         queue<string> q;
-        b = beginWord;
         q.push(beginWord);
+        mp[beginWord] = 1;
         st.erase(beginWord);
-        m[beginWord] = 1;
-        int n = beginWord.size();
-        while (!q.empty())
+        int len = beginWord.size();
+
+        while(!q.empty())
         {
-            string word = q.front();
-            int step = m[word];
+            string cur = q.front();
             q.pop();
-            if (word == endWord)    break;
-            for (int i = 0; i < n; i++)
+            if(cur == endWord) break;
+            int steps = mp[cur];
+            
+            for(int i=0; i<len; i++)
             {
-                char ab = word[i];
-                for (char ch = 'a'; ch <= 'z'; ch++)
+                char original = cur[i];
+                for(char c='a'; c<='z'; c++)
                 {
-                    word[i] = ch;
-                    if (st.count(word))
+                    cur[i] = c;
+                    if(st.count(cur))
                     {
-                        m[word] = step + 1;
-                        st.erase(word);
-                        q.push(word);
+                        mp[cur] = steps+1;
+                        st.erase(cur);
+                        q.push(cur);
                     }
+                    cur[i] = original;
                 }
-                word[i] = ab;
+
             }
+            
         }
-        if (m.find(endWord) != m.end())
+        if(mp.find(endWord) != mp.end())
         {
-            vector<string> cur;
-            cur.push_back(endWord);
-            dfs(endWord, cur);
+            vector<string> seq;
+            seq.push_back(endWord);
+            dfs(endWord, seq, beginWord);
         }
         return ans;
     }
