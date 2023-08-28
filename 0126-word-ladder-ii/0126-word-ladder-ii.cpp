@@ -3,7 +3,7 @@ class Solution
     unordered_map<string, int> m;
     vector<vector<string>> ans;
     string b;
-private:
+public:
     void dfs(string word, vector<string> &cur)
     {
         if (word == b)
@@ -32,7 +32,6 @@ private:
         }
     }
 
-public:
     vector<vector<string>> findLadders(string beginWord, string endWord, vector<string> &wordList)
     {
         unordered_set<string> st(wordList.begin(), wordList.end());
