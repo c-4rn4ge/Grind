@@ -1,26 +1,28 @@
-class Solution {
+class Solution
+{
 public:
-    void dfs(int src , int dst,vector<int> adj[],vector<int> &vis,bool &ans)
+    void dfs(vector<vector<int>> &adj, int u, vector<bool> &vis)
     {
-        if(vis[src]) return;
-        vis[src] = 1;
-        if(src == dst) ans = true;
-        else for(auto &j : adj[src]) dfs(j,dst,adj,vis,ans);
-    }
-    vector<bool> checkIfPrerequisite(int numCourses, vector<vector<int>>& prerequisites, vector<vector<int>>& queries) 
-    {
-        vector<int> adj[numCourses];
-        for(auto &i : prerequisites)    adj[i[0]].push_back(i[1]);
-        int q = queries.size();
-        vector<bool> ans(q,false);
-        for(int i = 0; i < q; i++)
+        for (auto &v : adj[u])
         {
-            int src = queries[i][0];
-            int dst = queries[i][1];
-            vector<int> vis(numCourses,0);
-            bool t = false;
-            dfs(src,dst,adj,vis,t) ;
-            ans[i] = t;
+            if (vis[v])    continue;
+            vis[v] = true;
+            dfs(adj, v, vis);
+        }
+    }
+    vector<bool> checkIfPrerequisite(int n,vector<vector<int>> &prerequisites,vector<vector<int>> &queries)
+    {
+        vector<bool> ans;
+        vector<vector<int>> adj(n);
+        vector<vector<bool>> isPrerequisite(n, vector<bool>(n));
+
+        for (auto &j : prerequisites)   adj[j[0]].push_back(j[1]);
+        for (int i = 0; i < n; ++i) dfs(adj, i, isPrerequisite[i]);
+        for (auto &i : queries)
+        {
+            int u = i[0];
+            int v = i[1];
+            ans.push_back(isPrerequisite[u][v]);
         }
         return ans;
     }
