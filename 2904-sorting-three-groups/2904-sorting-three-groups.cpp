@@ -1,25 +1,29 @@
-class Solution {
+class Solution
+{
 public:
-    int minimumOperations(vector<int>& nums) 
+    int solve(int i, vector<int> &nums, int n, int j, vector<vector<int>> &dp)
     {
-        int n = nums.size(),ans=0;
-        vector<int> t;    
-        t.push_back(nums[0]);
-        for(int i = 1; i < n; i++)
+        if (i == n)     return 0;
+        if (dp[i][j] != -1)     return dp[i][j];
+        int p = INT_MAX;
+        int nt = INT_MAX;
+        for (int k = 1; k <= 3; k++)
         {
-            auto l = lower_bound(t.begin(),t.end(),nums[i]);
-            auto h = upper_bound(t.begin(),t.end(),nums[i]);
-            if(h == t.end())
+            if (k != nums[i])
             {
-                t.push_back(nums[i]);
-            }
-            else
-            {
-                int ind = h - t.begin();
-                t[ind] = min(t[ind],nums[i]);
-                ans++;
+                if (j <= k)     p = min(p, 1 + solve(i + 1, nums, n, k, dp));
             }
         }
-        return ans;
+        if (j <= nums[i])
+        {
+            nt = solve(i + 1, nums, n, nums[i], dp);
+        }
+        return dp[i][j] = min(nt, p);
+    }
+    int minimumOperations(vector<int> &nums)
+    {
+        int n = nums.size();
+        vector<vector<int>> dp(n, vector<int>(4, -1));
+        return solve(0, nums, n, 0, dp);
     }
 };
