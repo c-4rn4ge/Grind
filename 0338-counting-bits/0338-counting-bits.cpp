@@ -1,13 +1,22 @@
 class Solution 
 {
 public:
-    vector<int> countBits(int n) 
+    int countbits(int num)
     {
-        vector<int> ans(n+1,0);
-        for(int i = 1; i <= n; i++) 
+        int count = 0;
+        while(num>0)
         {
-            if(i%2)     ans[i] = ans[i-1]+1; 
-            else        ans[i] = ans[i/2];
+            num = num&(num-1);
+            count++;
+        }
+        return count;
+    }
+    vector<int> countBits(int n)
+    {
+        vector<int> ans;
+        for(int i=0;i<=n;i++)
+        {
+            ans.push_back(countbits(i));
         }
         return ans;
     }
