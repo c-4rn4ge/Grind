@@ -10,20 +10,28 @@
  */
 class Solution {
 public:
-    ListNode* merge(ListNode* h1, ListNode* h2)
+    ListNode* merge(ListNode* l1, ListNode* l2) 
     {
-        if (!h1)    return h2;
-        if (!h2)    return h1;
-        if (h1->val < h2->val) 
+        if(l1 == NULL) return l2;
+        if(l2 == NULL) return l1;
+        ListNode* head = new ListNode(-1), *p = head;
+        while(l1 != NULL && l2 != NULL) 
         {
-            h1->next = merge(h1->next, h2);
-            return h1;
+            if(l1->val < l2->val) 
+            {
+                p->next = l1;
+                l1 = l1->next;
+            }
+            else 
+            {
+                p->next = l2;
+                l2 = l2->next;
+            }
+            p = p->next;
         }
-        else 
-        {
-            h2->next = merge(h1, h2->next);
-            return h2;
-        }
+        if(l1 != NULL) p->next = l1;
+        if(l2 != NULL) p->next = l2;
+        return head->next;
     }
     ListNode* mergeKLists(vector<ListNode*>& lists) 
     {
