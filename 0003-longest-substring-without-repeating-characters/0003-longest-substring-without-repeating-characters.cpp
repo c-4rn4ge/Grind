@@ -1,16 +1,17 @@
-class Solution {
+class Solution 
+{
 public:
-    int lengthOfLongestSubstring(string str) 
+    int lengthOfLongestSubstring(string s) 
     {
-        vector<int> h(256, -1);
-        int ans = 0, s = 0;
-        for (int i = 0; i != str.length(); i++) 
+        int n = s.length(),maxLen = 0,l=0,r=0;
+        unordered_map<char,int> mp;
+        while(r < n)
         {
-            if (h[str[i]] >= s)
-                s = h[str[i]] + 1;
-            h[str[i]] = i;
-            ans = max(ans, i - s + 1 );
+            mp[s[r]]++;
+            while(mp[s[r]] > 1) mp[s[l++]]--;
+            maxLen = max(maxLen,r-l+1);
+            r++;
         }
-        return ans;
+        return maxLen;        
     }
 };
