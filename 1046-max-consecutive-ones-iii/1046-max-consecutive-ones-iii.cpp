@@ -2,12 +2,14 @@ class Solution {
 public:
     int longestOnes(vector<int>& nums, int k) 
     {
-        int r = 0,l=0,ans=0,z=0,o=0,n=nums.size();
-        while(l<n)
+        ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+        int l = 0, r = 0, c = 0, ans = 0;
+        while(r < nums.size()) 
         {
-            (nums[l]) ? o++ : z++;
-            while(z > k) (nums[r]) ? o--: z--,r++;
-            ans = max(ans,(l++)-r+1);
+            c += (nums[r] == 1) ? 0 : 1;
+            while(c > k) c -= (nums[l] == 1 ? 0 : 1), l += 1;
+            ans = max(ans, r-l+1);
+            r += 1;
         }
         return ans;
     }
