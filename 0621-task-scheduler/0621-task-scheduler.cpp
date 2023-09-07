@@ -1,27 +1,17 @@
-class Solution {
+class Solution
+{
 public:
-    int leastInterval(vector<char>& tasks, int n) 
+    int leastInterval(vector<char>& tasks, int k) 
     {
-        priority_queue<int> pq;
-        queue<vector<int>> q;
-        vector<int> mp(26);
-        for (int i = 0; i < tasks.size(); i++)  ++mp[tasks[i] - 'A'];
-        for (int i = 0; i < 26; i++)    if (mp[i])    pq.push(mp[i]);
-        int time = 0;
-        while (!q.empty() || !pq.empty())
+        vector<int>mp(26,0);
+        int freq = 0,countFreq = 0,n = tasks.size();
+        for(auto &i : tasks) freq = max(freq,++mp[i-'A']);
+        for(int i = 0; i < 26; i++)
         {
-            time++;
-            if (!pq.empty())
-            {
-                if (pq.top() - 1)   q.push({pq.top() - 1, time + n});
-                pq.pop();
-            }
-            if (!q.empty() && q.front()[1] == time)
-            {
-                pq.push(q.front()[0]);
-                q.pop();
-            }
+            if(mp[i] == freq) countFreq++;
         }
-        return time;
+        cout<<freq<<" "<<countFreq<<endl;
+        int time = (freq - 1) * (k + 1) + countFreq;
+        return max(time,n);
     }
 };
