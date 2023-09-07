@@ -8,7 +8,8 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-class Solution {
+class Solution 
+{
 public:
     ListNode* merge(ListNode* l1, ListNode* l2) 
     {
@@ -35,9 +36,17 @@ public:
     }
     ListNode* mergeKLists(vector<ListNode*>& lists) 
     {
-        ListNode* ans = nullptr;
-        int k = lists.size();
-        for(int i=0;i<k;i++)    ans = merge(lists[i],ans);
-        return ans;    
+        if(lists.size() == 0) return NULL;
+        int i = 0, j = lists.size() -1;
+        while(i < j) 
+        {
+            while(i < j) 
+            {
+                lists[i] = merge(lists[i], lists[j]);
+                i++,j--;
+            }
+            i = 0;
+        }
+        return lists[0];
     }
 };
