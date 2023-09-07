@@ -1,27 +1,36 @@
-class Solution
+class Solution 
 {
-public:
-    string longestPalindrome(string s)
+private:
+    int solve(int i, int j, string s) 
     {
-        int n = s.length(),row =0,col=0;
-        vector<vector<int>> dp(n, vector<int>(n, 0));
-        for (int i = 0; i < n; i++)    dp[i][i] = 1;
-        for (int i = 0; i < n - 1; i++) 
+        int l = i;
+        int r = j;
+        while (l >= 0 && r < s.length() && s[l] == s[r])  l--,r++;
+        return r - l - 1;
+    }
+public:
+    string longestPalindrome(string s) 
+    {
+        int row = 0,col=0;
+        for (int i = 0; i < s.length(); i++) 
         {
-            if (s[i] == s[i + 1])   dp[i][i + 1] = 1,row = i,col = i + 1;
-        }
-        for (int i = 2; i < n; i++) 
-        {
-            for (int j = 0; j < n - i; j++) 
+            int odd = solve(i, i, s);
+            if (odd > col - row + 1) 
             {
-                if (s[j] == s[j + i] && dp[j + 1][j + i - 1]) 
-                {
-                    dp[j][j + i] = 1;
-                    row = j;
-                    col = j + i;
-                }
+                int dist = odd / 2;
+                row = i - dist;
+                col = i + dist;
             }
-        }        
-        return s.substr(row, col - row + 1);
+            
+            int even = solve(i, i + 1, s);
+            if (even > col - row + 1) 
+            {
+                int dist = (even / 2) - 1;
+                row = i - dist;
+                col = i + 1 + dist;
+            }
+        }
+
+        return s.substr(row, col-row+1);
     }
 };
