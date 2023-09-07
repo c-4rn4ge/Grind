@@ -1,33 +1,27 @@
-class Solution {
-    int solve(int i, int j, string &s) {
-        int l = i, r = j, n = s.size();
-        while(l >= 0 && r < n && s[l] == s[r]) {
-            l--;
-            r++;
-        }
-        return i - l;
-    }
+class Solution
+{
 public:
-    string longestPalindrome(string s) {
-        int n = s.size(), oddSize = 0, evenSize = 0, evenCentre, oddCentre;
-
-        for(int i = 0; i < n; i++) {
-            int l = solve(i, i, s);
-            if(l > oddSize) {
-                oddCentre = i;
-                oddSize = l;
-            }
-            if(i == n - 1) break;
-            l = solve(i, i + 1, s);
-            if(l > evenSize) {
-                evenCentre = i;
-                evenSize = l;
-            }
+    string longestPalindrome(string s)
+    {
+        int n = s.length(),row =0,col=0;
+        vector<vector<int>> dp(n, vector<int>(n, 0));
+        for (int i = 0; i < n; i++)    dp[i][i] = 1;
+        for (int i = 0; i < n - 1; i++) 
+        {
+            if (s[i] == s[i + 1])   dp[i][i + 1] = 1,row = i,col = i + 1;
         }
-       
-        string odd = s.substr(oddCentre - oddSize + 1, oddSize * 2 - 1);
-        string even = evenSize ? s.substr(evenCentre - evenSize + 1, evenSize * 2) : "";
-        
-        return even.size() > odd.size() ? even : odd;
+        for (int i = 2; i < n; i++) 
+        {
+            for (int j = 0; j < n - i; j++) 
+            {
+                if (s[j] == s[j + i] && dp[j + 1][j + i - 1]) 
+                {
+                    dp[j][j + i] = 1;
+                    row = j;
+                    col = j + i;
+                }
+            }
+        }        
+        return s.substr(row, col - row + 1);
     }
 };
