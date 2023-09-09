@@ -10,8 +10,7 @@ public:
         {
             if(mp[i] == freq) countFreq++;
         }
-        cout<<freq<<" "<<countFreq<<endl;
-        int time = (freq - 1) * (k + 1) + countFreq;
+        int time = freq + ((freq-1) * k) + countFreq - 1;
         return max(time,n);
     }
 };
