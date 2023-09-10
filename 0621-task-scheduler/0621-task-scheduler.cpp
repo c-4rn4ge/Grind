@@ -1,16 +1,28 @@
-class Solution
+class Solution 
 {
 public:
-    int leastInterval(vector<char>& tasks, int k) 
+    int leastInterval(vector<char>& tasks, int n) 
     {
-        vector<int>mp(26,0);
-        int freq = 0,countFreq = 0,n = tasks.size();
-        for(auto &i : tasks) freq = max(freq,++mp[i-'A']);
-        for(int i = 0; i < 26; i++)
+        priority_queue<int> pq;
+        queue<pair<int,int>> q;
+        vector<int> mp(26);
+        for (int i = 0; i < tasks.size(); i++)  ++mp[tasks[i] - 'A'];
+        for (int i = 0; i < 26; i++)    if (mp[i])    pq.push(mp[i]);
+        int time = 0;
+        while (q.size() || pq.size())
         {
-            if(mp[i] == freq) countFreq++;
+            time++;
+            if (!pq.empty())
+            {
+                if (pq.top() - 1)   q.push({pq.top() - 1, time + n});
+                pq.pop();
+            }
+            if (!q.empty() && q.front().second == time)
+            {
+                pq.push(q.front().first);
+                q.pop();
+            }
         }
-        int time = freq + ((freq-1) * k) + countFreq - 1;
-        return max(time,n);
+        return time;
     }
 };
