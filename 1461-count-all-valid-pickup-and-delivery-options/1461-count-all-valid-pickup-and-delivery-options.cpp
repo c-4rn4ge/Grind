@@ -13,7 +13,7 @@ public:
     }
     long long int countOrders(int n) 
     {
-        vector<vector<long long int>>dp(501,vector<long long int>(501,-1));
+        vector<vector<long long int>>dp(n+1,vector<long long int>(n+1,-1));
         return solve(n,0,0,dp);
     }
 };
