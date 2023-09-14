@@ -18,8 +18,8 @@ public:
     }
     vector<string> findItinerary(vector<vector<string>>& tickets) 
     {
-        int n = tickets.size();
         sort(tickets.begin(), tickets.end()); 
+        int n = tickets.size();
         unordered_map<string, vector<string>> adj; 
         for (int i = 0; i < n; i++) 
         {
