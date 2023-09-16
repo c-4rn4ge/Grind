@@ -5,7 +5,8 @@ public:
     {
         int n = grid.size();
         int m = grid[0].size();
-        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> pq;
+        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>,
+        greater<pair<int, pair<int, int>>>> pq;
         vector<vector<int>> dis(n, vector<int>(m, 1e9));
         pq.push({0, {0, 0}});
         dis[0][0] = 0;
