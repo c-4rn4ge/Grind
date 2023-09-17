@@ -1,13 +1,15 @@
-class Solution {
+class Solution 
+{
 public:
-    void moveZeroes(vector<int>& a) 
+    void moveZeroes(vector<int>& nums) 
     {
-        int n = a.size(),low = 0,high=1;
-        while(low < n && high < n)
+        int l,r;
+        l = r = 0;
+        while(r<nums.size() && l < nums.size())
         {
-            if(a[low]) {low ++;high = low+1;}
-            else if(a[low]==0 && a[high]==0) high++;
-            else if(a[low]==0 && a[high]) swap(a[low++],a[high]);
+            if(nums[r] == 0) r++;
+            else if(nums[l] == 0) swap(nums[l++],nums[r]);
+            else l++,r++;
         }
     }
 };
