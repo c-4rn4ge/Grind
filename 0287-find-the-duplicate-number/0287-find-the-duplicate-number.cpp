@@ -3,12 +3,18 @@ class Solution
 public:
     int findDuplicate(vector<int>& nums) 
     {
-        for(int i = 0; i < nums.size(); i++)
+        int s = nums[0],f = nums[nums[0]];
+        while (s != f)
         {
-            cout<<i<<endl;
-            if(nums[abs(nums[i])] < 0) return abs(nums[i]);
-            nums[abs(nums[i])] *= -1;
+            s = nums[s];
+            f = nums[nums[f]];
         }
-        return 0;
+        s = 0;
+        while (s != f) 
+        {
+            s = nums[s];
+            f = nums[f];
+        }
+        return s;
     }
 };
