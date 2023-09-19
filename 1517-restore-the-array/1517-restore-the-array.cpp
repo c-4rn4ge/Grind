@@ -5,6 +5,7 @@ public:
     long long solve(string &s , long long k ,long long i, vector<long long> &dp)
     {
         if(i == s.length()) return 1;
+        if(s[i] == '0') return 0;
         if(dp[i] != -1) return dp[i];
         long long sum = 0,curr = 0;
         for(long long j = i; j < s.length(); j++)
