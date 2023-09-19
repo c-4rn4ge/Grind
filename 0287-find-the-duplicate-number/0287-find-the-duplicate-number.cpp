@@ -3,18 +3,22 @@ class Solution
 public:
     int findDuplicate(vector<int>& nums) 
     {
-        int s = nums[0],f = nums[nums[0]];
-        while (s != f)
-        {
-            s = nums[s];
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL) ;
+        int f = 0;
+        int s = 0;
+
+        while (true){
             f = nums[nums[f]];
-        }
-        s = 0;
-        while (s != f) 
-        {
             s = nums[s];
-            f = nums[f];
+            if(s == f){break;}
         }
-        return s;
+
+        f = 0;
+        while(true){
+            f = nums[f];
+            s = nums[s];
+            if(f == s){return s;}
+        }
     }
 };
