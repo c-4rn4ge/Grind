@@ -1,20 +1,19 @@
-class Solution {
+class Solution 
+{
 public:
-    int subarrayGCD(vector<int>& nums, int k) {
-        int n = nums.size(), res = 0;
-        if(n == 1) return nums[0] == k;
-        
-        for(auto i = 0; i < n-1; i++){
-            int a = nums[i];
-            if(a == k) res++;
-            
-            for(auto j = i+1; j < n; j++){
-                a = __gcd(nums[j], a);
-                if(a == k) res++;
+    int subarrayGCD(vector<int>& nums, int k) 
+    {
+        int ans = 0, n = nums.size();
+        for(int i = 0; i < n ; i++)
+        {
+            if(nums[i] == k) ans++;
+            int x = nums[i];
+            for(int j = i + 1; j < n; j++)
+            {
+                x = __gcd(x, nums[j]);
+                if(x == k)  ans++;
             }
         }
-        if(nums[n-1] == k) res++;
-        
-        return res;
+        return ans;
     }
 };
