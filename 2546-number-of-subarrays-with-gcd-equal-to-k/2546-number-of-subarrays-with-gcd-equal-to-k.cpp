@@ -4,10 +4,6 @@ public:
     int subarrayGCD(vector<int>& nums, int k) 
     {
         int ans = 0, n = nums.size();
-        if(k == 1)
-        {
-
-        }
         for(int i = 0; i < n; i++)
         {
             if(nums[i] == k) ans++;
