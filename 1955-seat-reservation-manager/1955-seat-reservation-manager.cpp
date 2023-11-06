@@ -1,26 +1,26 @@
 class SeatManager
 {
+    int s;
+    vector<int> v;
+    priority_queue<int, vector<int>, greater<>> p;
+
 public:
-    int v[100001] = {0};
-    int top, n;
     SeatManager(int n)
     {
-        this->n = n;
-        fill(v, v+n, 1);
-        top = 1;
+        s = 1;
+        v.resize(n + 1, 0);
     }
     int reserve()
     {
-        int x = top++;
-        while (top < n && !v[top])  top++;
-        v[x] = 0;
-        return x;
+        int i;v[i] = 1;
+        if (!p.empty()) {i = p.top();p.pop();}
+        else    i = s++;
+        return i;
     }
-
     void unreserve(int seatNumber)
     {
-        v[seatNumber] = 1;
-        if (top > seatNumber)   top = seatNumber;
+        p.push(seatNumber);
+        v[seatNumber] = 0;
     }
 };
 
